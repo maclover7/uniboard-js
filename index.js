@@ -5,15 +5,15 @@ var app = express();
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
-var providers = [
+var providers =[
   require('./lib/lirr'),
-  require ('./lib/njt')
-];
+  require ('./lib/njt')]
+    .map((provider) => { return new provider; });
 
 var sortTrains = require('./lib/sort');
 
 function getAllTrains() {
-  return Promise.all(providers.map((provider) => { return (new provider).getData() }))
+  return Promise.all(providers.map((provider) => { return provider.getData() }))
   .then(function(values) {
     return new Promise(function(resolve, reject) {
       resolve(values[0].concat(values[1]));
