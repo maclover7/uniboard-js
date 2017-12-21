@@ -1,0 +1,18 @@
+{
+  "name": "uniboard-js",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {},
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "moment": "^2.18.1",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
