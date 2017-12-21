@@ -5,12 +5,15 @@ var app = express();
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
-var getLIRR = require('./lib/lirr');
-var getNJTAMTK = require ('./lib/njt');
+var providers = [
+  require('./lib/lirr'),
+  require ('./lib/njt')
+];
+
 var sortTrains = require('./lib/sort');
 
 function getAllTrains() {
-  return Promise.all([getLIRR(), getNJTAMTK()])
+  return Promise.all(providers.map((provider) => { return (new provider).getData() }))
   .then(function(values) {
     return new Promise(function(resolve, reject) {
       resolve(values[0].concat(values[1]));
