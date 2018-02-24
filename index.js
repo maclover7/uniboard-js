@@ -1,39 +1,43 @@
-var express = require('express');
-var Promise = require('bluebird');
-var app = express();
+const express = require('express');
+const Promise = require('bluebird');
+const app = express();
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
-var providers =[
+const providers = [
   require('./lib/lirr'),
-  require ('./lib/njt')]
-    .map((provider) => { return new provider; });
+  require ('./lib/njt')
+].map((provider) => {
+  return new provider;
+});
 
-var sortTrains = require('./lib/sort');
+const sortTrains = require('./lib/sort');
 
-function getAllTrains() {
-  return Promise.all(providers.map((provider) => { return provider.getData() }))
+const getAllTrains = () => {
+  return Promise.all(providers.map((provider) => {
+    return provider.getData();
+  }))
   .then(function(values) {
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) => {
       resolve(values[0].concat(values[1]));
     });
   })
   .then(sortTrains);
 };
 
-app.get('/', function(req, res) {
-  getAllTrains().then(function(trains) {
+app.get('/', (req, res) => {
+  getAllTrains().then((trains) => {
     res.render('index', { trains: trains });
   });
 });
 
-app.get('/api', function(req, res) {
-  getAllTrains().then(function(trains) {
+app.get('/api', (req, res) => {
+  getAllTrains().then((trains) => {
     res.json({ trains: trains });
   });
 });
 
-app.listen(3000, function () {
-  console.log('App listening on port 3000!')
+app.listen(3000, () => {
+  console.log('App listening on port 3000!');
 })
