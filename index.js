@@ -38,6 +38,10 @@ app.get('/api', (req, res) => {
   });
 });
 
+app.get('/ping', (req, res) => {
+  res.status(200).end();
+});
+
 app.listen(3000, () => {
   console.log('App listening on port 3000!');
 })
