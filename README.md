@@ -1,4 +1,4 @@
-# uniboard-js
+# uniboardjs
 
 Unified train departure board for NY Penn Station
 
