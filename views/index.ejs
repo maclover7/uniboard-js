@@ -18,14 +18,15 @@
       <small>Unified train departure board for NY Penn Station</small>
     </h1>
 
+    <br>
+
     <table class="table">
       <thead>
         <tr>
           <th>Time</th>
-          <th>Carrier</th>
+          <th>Train</th>
           <th>Destination</th>
           <th>Track</th>
-          <th>Train</th>
           <th>Status</th>
         </tr>
       </thead>
@@ -34,10 +35,9 @@
         <% trains.forEach(function(train) { %>
           <tr>
             <td> <%= train['TIME'].format('h:mm') %></td>
-            <td> <%= train['CARRIER'] %>
+            <td> <%= train['CARRIER'] + ' ' + train['TRAIN_ID'] %>
             <td> <%- train['DESTINATION'] %></td>
             <td> <%= train['TRACK'] %></td>
-            <td> <%= train['TRAIN_ID'] %></td>
             <td> <%= train['STATUS'] %></td>
           </tr>
         <% }); %>
