@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
   <style>
-    body {
-      text-align: center;
+    body { text-align: center; }
+
+    @media all and (max-width: 1024px) {
+      table { font-size: 12px; }
+    }
+
+    @media all and (min-width: 1024px) {
+      table { font-size: 16px; }
     }
   </style>
 </head>
@@ -15,33 +21,35 @@
   <div class="container">
     <h1>
       Uniboard <br>
-      <small>Unified train departure board for NY Penn Station</small>
+      <small>Unified NY Penn departures</small>
     </h1>
 
     <br>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Time</th>
-          <th>Train</th>
-          <th>Destination</th>
-          <th>Track</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% trains.forEach(function(train) { %>
+    <div class="table-responsive">
+      <table class="table" style="width: 100%">
+        <thead>
           <tr>
-            <td> <%= train['TIME'].format('h:mm') %></td>
-            <td> <%= train['CARRIER'] + ' ' + train['TRAIN_ID'] %>
-            <td> <%- train['DESTINATION'] %></td>
-            <td> <%= train['TRACK'] %></td>
-            <td> <%= train['STATUS'] %></td>
+            <th>Time</th>
+            <th>Train</th>
+            <th>Destination</th>
+            <th>Track</th>
+            <th>Status</th>
           </tr>
-        <% }); %>
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+          <% trains.forEach(function(train) { %>
+            <tr style="color: <%= train['TEXT_COLOR'] %>; background-color: <%= train['BG_COLOR'] %>">
+              <td> <%= train['TIME'].format('h:mm') %></td>
+              <td> <%= train['CARRIER'] + ' ' + train['TRAIN_ID'] %>
+              <td> <%- train['DESTINATION'] %></td>
+              <td> <%= train['TRACK'] %></td>
+              <td> <%= train['STATUS'] %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </body>
